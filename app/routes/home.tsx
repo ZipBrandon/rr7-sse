@@ -1,5 +1,5 @@
 import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
+import { useEventSource } from "remix-utils/sse/react";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -9,5 +9,14 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-  return <Welcome />;
+
+  let data = useEventSource("/sse", { event: "data" });
+
+
+  return <div>
+
+    <h1>Home</h1>
+
+<div>{data}</div>
+  </div>
 }
